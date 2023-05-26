@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+{% load static wagtailimages_tags wagtailcore_tags %}
+
+{% block body_class %}template-homepage{% endblock %}
+
+{% block extra_css %}
+
+{% endblock extra_css %}
+
+{% block content %}
+
+    {% image self.banner_image fill-900x400 as img %}
+ 
+
+    <div class="banner" style="background-image: url('{{ img.url }}'); min-height: 350px; height: 40vh; background-size: cover; background-position: center top; display: flex; flex-direction: column; justify-content: center;  color:black; 
+   ">
+        <h1 class="display-4">{{ self.banner_title }}</h1>
+        <div class="lead">{{ self.banner_subtitle|richtext }}</div>
+
+    </div>
+
+    <hr/>
+
+
+    {% for block in page.body %}
+        {% if block.block_type != 'carousel' %}
+            {% include_block block %}
+        {% endif %}
+    {% endfor %}
+
+    
+    {% include 'home/carousel.html' %}
+
+    <script defer src="https://unpkg.com/alpinejs@3.2.3/dist/cdn.min.js"></script>
+{% endblock content %}
